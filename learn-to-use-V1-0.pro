@@ -13,9 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    mybutton.cpp
 
 HEADERS  += mainwindow.h \
     mybutton.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    res.qrc
+CONFIG += resources_big

@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/back.png</file>
+        <file>res/back_back.png</file>
+        <file>res/firstpage_barkground.png</file>
+        <file>res/front.png</file>
+        <file>res/front_button.png</file>
+        <file>res/full.png</file>
+        <file>res/input_name.png</file>
+        <file>res/middle.png</file>
+        <file>res/middle_button.png</file>
+        <file>res/middle1.png</file>
+        <file>res/none.png</file>
+        <file>res/table.png</file>
+        <file>res/game-background.png</file>
+    </qresource>
+</RCC>
