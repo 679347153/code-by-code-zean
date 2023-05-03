@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
+QT       += core gui multimedia sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = learn-to-use-V1-0
@@ -24,3 +23,6 @@ FORMS    += mainwindow.ui
 RESOURCES += \
     res.qrc
 CONFIG += resources_big
+
+DISTFILES += \
+    json/object.json

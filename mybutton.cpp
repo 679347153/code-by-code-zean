@@ -14,7 +14,9 @@ MyButton *MyButton::copyMyButton()
    MyButton * res = new MyButton();
    //在初始化中，仅仅增加了Text，
    res->setText(this->text());
-   res->myId=this->myId;
+   res->myId1=this->myId1;
+   res->myId2=this->myId2;
+   res->Id=this->Id;
    //待修改
    res->setStyleSheet(this->styleSheet());
    return res;

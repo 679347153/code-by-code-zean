@@ -322,7 +322,7 @@ background-image: url(:/res/front_button.png);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/res/table.png);</string>
+       <string notr="true"/>
       </property>
       <widget class="QWidget" name="deleteWidget" native="true">
        <property name="geometry">
@@ -333,17 +333,78 @@ background-image: url(:/res/front_button.png);</string>
          <height>171</height>
         </rect>
        </property>
-       <widget class="QWidget" name="horizontalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>50</y>
-          <width>160</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout"/>
-       </widget>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/res/delete.png);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>20</y>
+         <width>123</width>
+         <height>123</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/res/music_on.png);
+background-color: rgba(255, 255, 255,0);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QWidget" name="goodsWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>37</x>
+         <y>150</y>
+         <width>780</width>
+         <height>1100</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/res/none.png);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="goback">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>123</width>
+         <height>123</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/res/go_back.png);
+background-color: rgba(255, 255, 255,0);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>15</y>
+         <width>415</width>
+         <height>133</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 italic 48pt &quot;鸿雷拙书简体&quot;;
+
+color: rgb(255, 51, 11);
+background-image: url(:/res/none.png);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
       </widget>
      </widget>
     </widget>

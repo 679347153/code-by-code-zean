@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>res/back.png</file>
         <file>res/back_back.png</file>
+        <file>res/delete.png</file>
         <file>res/firstpage_barkground.png</file>
         <file>res/front.png</file>
         <file>res/front_button.png</file>
@@ -12,6 +13,57 @@
         <file>res/middle1.png</file>
         <file>res/none.png</file>
         <file>res/table.png</file>
+        <file>json/object.json</file>
+        <file>json/level1.json</file>
+        <file>json/level3.json</file>
+        <file>json/level2.json</file>
+        <file>icon/0-0.png</file>
+        <file>icon/0-0grey.png</file>
+        <file>icon/1-0.png</file>
+        <file>icon/1-0grey.png</file>
+        <file>icon/1-1.png</file>
+        <file>icon/1-1grey.png</file>
+        <file>icon/2-0.png</file>
+        <file>icon/2-0grey.png</file>
+        <file>icon/2-1.png</file>
+        <file>icon/2-1grey.png</file>
+        <file>icon/2-2.png</file>
+        <file>icon/2-2grey.png</file>
+        <file>icon/3-0.png</file>
+        <file>icon/3-0grey.png</file>
+        <file>icon/3-1.png</file>
+        <file>icon/3-1grey.png</file>
+        <file>icon/3-2.png</file>
+        <file>icon/3-2grey.png</file>
+        <file>icon/4-0.png</file>
+        <file>icon/4-0grey.png</file>
+        <file>icon/4-1.png</file>
+        <file>icon/4-1grey.png</file>
+        <file>icon/4-2.png</file>
+        <file>icon/4-2grey.png</file>
+        <file>icon/5-0.png</file>
+        <file>icon/5-0grey.png</file>
+        <file>icon/5-1.png</file>
+        <file>icon/5-1grey.png</file>
+        <file>icon/5-2.png</file>
+        <file>icon/5-2grey.png</file>
+        <file>icon/6-0.png</file>
+        <file>icon/6-0grey.png</file>
+        <file>icon/6-1.png</file>
+        <file>icon/6-1grey.png</file>
+        <file>icon/6-2.png</file>
+        <file>icon/6-2grey.png</file>
+        <file>icon/6-3.png</file>
+        <file>icon/6-3grey.png</file>
+        <file>icon/6-4.png</file>
+        <file>icon/6-4grey.png</file>
         <file>res/game-background.png</file>
+        <file>res/go_back.png</file>
+        <file>res/go_back(1).png</file>
+        <file>res/music.png</file>
+        <file>res/music_off.png</file>
+        <file>res/music_on.png</file>
+        <file>res/background_music.wav</file>
+        <file>res/backgroundmusic.wav</file>
     </qresource>
 </RCC>
