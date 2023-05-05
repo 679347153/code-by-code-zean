@@ -63,7 +63,10 @@
         <file>res/music.png</file>
         <file>res/music_off.png</file>
         <file>res/music_on.png</file>
-        <file>res/background_music.wav</file>
         <file>res/backgroundmusic.wav</file>
+        <file>res/ranking.png</file>
+        <file>res/exit.png</file>
+        <file>res/retry.png</file>
+        <file>res/icon.png</file>
     </qresource>
 </RCC>

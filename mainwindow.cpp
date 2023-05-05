@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 void sleep(int sectime)//非阻塞延时函数
 {
     QTime dieTime = QTime::currentTime().addMSecs(sectime);
@@ -8,35 +9,60 @@ void sleep(int sectime)//非阻塞延时函数
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);//最大100ms
     }
 }
+bool flag2=1;
+database user;
+User myuser,*userlist;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/res/icon.png"));
 //    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-//        db.setHostName("eat.mysql.database.azure.com");  //连接远程主机
+//        db.setHostName("eat.mysql.database.azure.com");  //连接数据库主机
 //        db.setPort(3306);
 //        db.setDatabaseName("0nlinetek-eat-database");
-//        db.setUserName("suyrbmymqs");
-//        db.setPassword("1QW6E7P7YUNRMVA5");
-//        bool ok = db.open();
-//        if (ok){
-//            QMessageBox::information(this, "infor", "link success");
-//        }
-//        else {
-//            QMessageBox::information(this, "infor", "link failed");
-//            //qDebug()<<"error open database because"<<db.lastError().text();
-//        }
+//        db.setUserName("supereat");
+//        db.setPassword("0nlineTek");
+//    db.setHostName("127.0.0.1");  //连接数据库主机
+//    db.setPort(3306);
+//    db.setDatabaseName("demo");
+//    db.setUserName("root");
+//    db.setPassword("679347153zwzw");
+//    bool ok = db.open();
+//    if (ok){
+//        QMessageBox::information(this, "infor", "数据库链接成功");
+//    }
+//    else {
+//        QMessageBox::information(this, "infor", "数据库链接失败，自动启用本地模式");
+//        //qDebug()<<"error open database because"<<db.lastError().text();
+//    }
     username=nullptr;
     score=0;
     levelGroup=nullptr;// 用于存放关卡中涉及的元素
     deleteBtnList=nullptr;// 用于存放消除区的元素
     modelGroup=nullptr; // 用于存放模板元素，
-    //QString runpath=QCoreApplication::applicationDirPath();
-    //QString musicpath=runpath;
+    //播放音乐
     QSound *startSound=new QSound(":/res/backgroundmusic.wav",this);
+    startSound->setLoops(-1);
     startSound->play();
+    //音乐开关
+    connect(ui->music1,&QPushButton::clicked,this,[=,&flag2](){
+        if(flag2)
+        {
+            startSound->stop();
+            ui->music1->setStyleSheet("background-image: url(:/res/music_off.png);background-color: rgba(255, 255, 255,0);");
+        }
+        else
+        {
+            startSound->setLoops(-1);
+            startSound->play();
+            ui->music1->setStyleSheet("background-image: url(:/res/music_on.png);background-color: rgba(255, 255, 255,0);");
+        }
+        flag2=!flag2;
+    });
+    //重玩游戏
     connect(ui->goback,&QPushButton::clicked,this,[=]()
     {
         ui->one->setVisible(true);
@@ -44,16 +70,44 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->there->setVisible(true);
         ui->stackedWidget->setCurrentIndex(1);//设定为第1页
     });
+    connect(ui->goback2,&QPushButton::clicked,this,[=]()
+    {
+        ui->one->setVisible(true);
+        ui->two->setVisible(true);
+        ui->there->setVisible(true);
+        ui->stackedWidget->setCurrentIndex(1);//设定为第1页
+    });
+    connect(ui->exit,&QPushButton::clicked,this,[=]()//退出游戏
+    {
+        exit(0);
+    });
     Gameinit();
 }
 QString name;
-int num=0;
+int num=0,len=0;
 MyButton *highlight;
 bool flag=0;
 void MainWindow::Gameinit()
 {
 
+
     ui->stackedWidget->setCurrentIndex(0);//设定为第0页
+    //QAbstractButton * btn = ui->rank->findChild<QAbstractButton *>();
+    //btn->setStyleSheet("background-color: rgba(255, 255, 255,0);");
+    //QTableView QTableCornerButton::section {background-color: rgba(255, 255, 255,0);}
+    //ui->rank->cornerWidget()->setStyleSheet("QTableView::section {background-color: rgba(255, 255, 255,0);}");
+   // ui->rank->
+    //QString style=ui->rank->styleSheet();
+    //ui->rank->setStyleSheet(style+"QTableCornerButton::section{background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
+
+    ui->rank->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
+    ui->rank->verticalHeader()->setStyleSheet("QHeaderView::section {background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
+    ui->rank->setColumnCount(2);
+    ui->rank->setHorizontalHeaderLabels(QStringList()<<"  name  "<<"score");
+    ui->rank->setRowCount(10);
+    ui->rank->setVerticalHeaderLabels(QStringList()<<"10"<<"9"<<"8"<<"7"<<"6"<<"5"<<"4"<<"3"<<"2"<<"1");
+    ui->rank->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->rank->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->lineEdit->setPlaceholderText("2 - 10 个 字");//输入名字栏
     //QString *name =new *QString(this);
     connect(ui->submit1,&QPushButton::clicked,this,[=,&name]()
@@ -116,7 +170,9 @@ void MainWindow::Gameinit()
        initGame();
     });
     ui->label->setAlignment(Qt::AlignHCenter);
-
+    ui->addition->setAlignment(Qt::AlignHCenter);
+    ui->addition2->setAlignment(Qt::AlignHCenter);
+    ui->addition2->setText("Programmed by zw and lcy. All rights reserved.");
 }
 void MainWindow::initGame()
 {
@@ -489,7 +545,26 @@ void MainWindow::addToDeleteWidget(MyButton *btn)
     }
     else if(levelGroup->buttons().empty()&&deleteBtnList->size()==0)
     {
+
+        myuser.username=username;
+        myuser.score=score;
+        if(len<10)len++;
+        int i=user.add_user(myuser)+1;
+        userlist=user.show_ranking();
+        for(int i=0;i<len;i++)
+        {
+            ui->rank->setItem(9-i,0,new QTableWidgetItem(userlist[i].username));
+            ui->rank->setItem(9-i,1,new QTableWidgetItem(QString::number(userlist[i].score)));
+        }/**/
         ui->stackedWidget->setCurrentIndex(3);//设定为第3页
+        if(i!=0)
+        {
+            ui->addition->setText(QString("恭喜榜%1").arg(QString::number(i)));
+        }
+        else
+        {
+            ui->addition->setText("未上榜");
+        }
         //username score
     }
 }/**/

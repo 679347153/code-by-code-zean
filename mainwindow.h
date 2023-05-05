@@ -24,8 +24,10 @@
 #include <QComboBox>
 #include <QTextEdit>
 #include <QGridLayout>  //布局
-#include <QSound>   //音乐头文件
+#include <QSoundEffect>   //音乐头文件
+#include<QSound>
 #include <QSqlDatabase> //数据库
+#include "database.h"
 //类似c++创建namespace
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

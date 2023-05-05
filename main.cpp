@@ -5,6 +5,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
      MainWindow w;
+     w.setWindowTitle(QStringLiteral("码呀码 -- zw and lcy"));
      w.show();
 
     return a.exec();
