@@ -67,6 +67,28 @@
         <file>res/ranking.png</file>
         <file>res/exit.png</file>
         <file>res/retry.png</file>
+        <file>res/backwithfont.png</file>
+        <file>res/ranking(1).png</file>
+        <file>res/start_button.png</file>
+        <file>res/start_button_gray.png</file>
+        <file>res/start_button_yellow.png</file>
+        <file>res/name.png</file>
+        <file>res/ok.png</file>
+        <file>res/ok_gray.png</file>
+        <file>res/ok_yellow.png</file>
+        <file>res/button.wav</file>
+        <file>res/1.png</file>
+        <file>res/1gray.png</file>
+        <file>res/1yellow.png</file>
+        <file>res/2.png</file>
+        <file>res/2gray.png</file>
+        <file>res/2yellow.png</file>
+        <file>res/3.png</file>
+        <file>res/3gray.png</file>
+        <file>res/3yellow.png</file>
+        <file>res/backwithshadow.png</file>
+        <file>res/clear_010.wav</file>
+        <file>res/icon.ico</file>
         <file>res/icon.png</file>
     </qresource>
 </RCC>

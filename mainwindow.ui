@@ -63,11 +63,12 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/res/firstpage_barkground.png);
+      <string notr="true">
+background-image: url(:/res/name.png);
 
 </string>
      </property>
@@ -93,7 +94,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/res/input_name.png);</string>
+       <string notr="true">/**background-image: url(:/res/input_name.png);**/</string>
       </property>
       <property name="title">
        <string/>
@@ -102,213 +103,135 @@
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>740</y>
+         <y>730</y>
          <width>391</width>
          <height>61</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">border-radius:20px;</string>
+        <string notr="true">border-radius:20px;
+color: rgb(39, 78, 118);
+background-image: url(:/res/none.png);
+background-color: rgba(255, 255, 255,0);
+</string>
        </property>
       </widget>
       <widget class="QPushButton" name="submit1">
        <property name="geometry">
         <rect>
-         <x>280</x>
-         <y>910</y>
-         <width>271</width>
-         <height>91</height>
+         <x>60</x>
+         <y>930</y>
+         <width>659</width>
+         <height>256</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <pointsize>19</pointsize>
-        </font>
-       </property>
        <property name="styleSheet">
-        <string notr="true">border-radius:45px;
-background-color: rgb(255, 255, 255);
-color: rgb(88, 88, 88);</string>
+        <string notr="true">#submit1{
+	
+	background-image: url(:/res/ok.png);
+	
+	background-color: rgba(255, 255, 255,0);
+}
+
+/**鼠标停留在按钮上的样式**/
+#submit1::hover{	
+background-image: url(:/res/ok_yellow.png);
+	background-color: rgba(255, 255, 255,0);
+}
+
+/**鼠标按压下去的样式**/
+#submit1::pressed,submit1::checked{
+    
+	background-image: url(:/res/ok_gray.png);
+background-color: rgba(255, 255, 255,0);
+}</string>
        </property>
        <property name="text">
-        <string>确认</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
+        <string/>
        </property>
       </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="page1">
      <property name="styleSheet">
-      <string notr="true">#page1{background-image: url(:/res/back_back.png);}</string>
+      <string notr="true">#page1{background-image: url(:/res/backwithshadow.png);}</string>
      </property>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QPushButton" name="one">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>810</width>
-        <height>1440</height>
+        <x>85</x>
+        <y>480</y>
+        <width>642</width>
+        <height>144</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#widget{background-image: url(:/res/back.png);}</string>
+       <string notr="true">#one{background-image: url(:/res/1.png);
+background-color: rgba(255, 255, 255,0);}
+#one::hover{
+background-image: url(:/res/1yellow.png);
+background-color: rgba(255, 255, 255,0);}
+#one::pressed,one::checked{
+background-image: url(:/res/1gray.png);
+background-color: rgba(255, 255, 255,0);
+}</string>
       </property>
-      <widget class="QWidget" name="widget_2" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>810</width>
-         <height>1440</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#widget_2{background-image: url(:/res/middle1.png);}</string>
-       </property>
-       <widget class="QWidget" name="widget_3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>810</width>
-          <height>1440</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-image: url(:/res/front.png);</string>
-        </property>
-        <widget class="QPushButton" name="one">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>810</width>
-           <height>510</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>810</width>
-           <height>510</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>810</width>
-           <height>510</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>鸿雷拙书简体</family>
-           <pointsize>48</pointsize>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 48pt &quot;鸿雷拙书简体&quot;;
-color: rgb(110, 38, 255);
-background-image: url(:/res/full.png);</string>
-         </property>
-         <property name="text">
-          <string>第一关</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="two">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>510</y>
-           <width>810</width>
-           <height>330</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>810</width>
-           <height>330</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>810</width>
-           <height>330</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>鸿雷拙书简体</family>
-           <pointsize>48</pointsize>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 48pt &quot;鸿雷拙书简体&quot;;
-color: rgb(255, 23, 73);
-background-image: url(:/res/middle_button.png);</string>
-         </property>
-         <property name="text">
-          <string>第二关</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="there">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>840</y>
-           <width>810</width>
-           <height>600</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>810</width>
-           <height>600</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>810</width>
-           <height>600</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>鸿雷拙书简体</family>
-           <pointsize>48</pointsize>
-           <weight>9</weight>
-           <italic>true</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 75 italic 48pt &quot;鸿雷拙书简体&quot;;
-color: rgb(4, 152, 95);
-background-image: url(:/res/front_button.png);</string>
-         </property>
-         <property name="text">
-          <string>第三关</string>
-         </property>
-        </widget>
-        <zorder>two</zorder>
-        <zorder>there</zorder>
-        <zorder>one</zorder>
-       </widget>
-      </widget>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="two">
+      <property name="geometry">
+       <rect>
+        <x>85</x>
+        <y>780</y>
+        <width>642</width>
+        <height>144</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#two{background-image: url(:/res/2.png);
+background-color: rgba(255, 255, 255,0);}
+#two::hover{
+background-image: url(:/res/2yellow.png);
+background-color: rgba(255, 255, 255,0);}
+#two::pressed,two::checked{
+background-image: url(:/res/2gray.png);
+background-color: rgba(255, 255, 255,0);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="there">
+      <property name="geometry">
+       <rect>
+        <x>75</x>
+        <y>990</y>
+        <width>659</width>
+        <height>256</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#there{background-image: url(:/res/3.png);
+background-color: rgba(255, 255, 255,0);}
+#there::hover{
+background-image: url(:/res/3yellow.png);
+background-color: rgba(255, 255, 255,0);}
+#there::pressed,there::checked{
+background-image: url(:/res/3gray.png);
+background-color: rgba(255, 255, 255,0);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page2">
@@ -518,424 +441,66 @@ font: 75 italic 9pt &quot;楷体&quot;;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="page4">
-     <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="styleSheet">
+      <string notr="true">#page4{background-image: url(:/res/backwithfont.png);}</string>
+     </property>
+     <widget class="QPushButton" name="rank2">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>80</y>
-        <width>611</width>
-        <height>761</height>
+        <x>5</x>
+        <y>0</y>
+        <width>170</width>
+        <height>170</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="t11">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255,0);
+border-image: url(:/res/ranking(1).png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="music2">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>20</y>
+        <width>123</width>
+        <height>123</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/music_on.png);
 background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="t12">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="t13">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="label_10">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_8">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_13">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_12">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="label_16">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_15">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_14">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QLabel" name="label_19">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_18">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_17">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <item>
-          <widget class="QLabel" name="label_22">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_21">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_20">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QLabel" name="label_25">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_24">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_23">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <widget class="QLabel" name="label_28">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_27">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_26">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QLabel" name="label_31">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_30">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_29">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QLabel" name="label_34">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_33">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_32">
-           <property name="styleSheet">
-            <string notr="true">background-image: url(:/res/none.png);
-background-color: rgba(255, 255, 255,0);</string>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="start">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>800</y>
+        <width>741</width>
+        <height>322</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#start{
+background-image: url(:/res/start_button.png);
+background-color: rgba(255, 255, 255,0);}
+#start::hover{
+background-image: url(:/res/start_button_yellow.png);
+background-color: rgba(255, 255, 255,0);}
+#start::pressed,start::checked{
+background-image: url(:/res/start_button_gray.png);
+background-color: rgba(255, 255, 255,0);}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page5"/>

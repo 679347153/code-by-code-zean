@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 void sleep(int sectime)//非阻塞延时函数
 {
     QTime dieTime = QTime::currentTime().addMSecs(sectime);
@@ -16,16 +15,39 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
-    setWindowIcon(QIcon(":/res/icon.png"));
+    // 采用http协议连接服务器
+    Init();
+    setWindowIcon(QIcon(":/res/icon.ico"));
+    //tcp协议链接服务器
+    {
+//        tcpSocket=NULL;
+//        //分配空间,指定父对象
+//        tcpSocket =new QTcpSocket (this);
+//        QString ip="";
+//        qint16 port=8000;
+//        //主动和服务器建立链接
+//        tcpSocket->connectToHost(QHostAddress(ip),port);
+
+//        connect(tcpSocket,&QTcpSocket::connected,this,[=](){
+//            QMessageBox::information(this, "infor", "数据库链接成功");
+//        });
+//        connect(tcpSocket,&QTcpSocket::disconnected,this,[=](){
+//            QMessageBox::information(this, "infor", "数据库链接成功");
+//        });
+
+
+    }
+    //裸连数据库
+    {
 //    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
 //        db.setHostName("eat.mysql.database.azure.com");  //连接数据库主机
 //        db.setPort(3306);
-//        db.setDatabaseName("0nlinetek-eat-database");
+//        db.setDatabaseName("XXXXXXXX");
 //        db.setUserName("supereat");
-//        db.setPassword("0nlineTek");
-//    db.setHostName("127.0.0.1");  //连接数据库主机
+//        db.setPassword("*******");
+        //本地数据库连接
+//    db.setHostName("127.0.0.1");  //尝试连接本地
 //    db.setPort(3306);
 //    db.setDatabaseName("demo");
 //    db.setUserName("root");
@@ -38,12 +60,16 @@ MainWindow::MainWindow(QWidget *parent) :
 //        QMessageBox::information(this, "infor", "数据库链接失败，自动启用本地模式");
 //        //qDebug()<<"error open database because"<<db.lastError().text();
 //    }
+    }
+
     username=nullptr;
     score=0;
     levelGroup=nullptr;// 用于存放关卡中涉及的元素
     deleteBtnList=nullptr;// 用于存放消除区的元素
     modelGroup=nullptr; // 用于存放模板元素，
     //播放音乐
+    c_button=new QSound(":/res/clear_010.wav",this);//消除声音
+    p_button=new QSound(":/res/button.wav",this); //按下按钮声音
     QSound *startSound=new QSound(":/res/backgroundmusic.wav",this);
     startSound->setLoops(-1);
     startSound->play();
@@ -53,53 +79,250 @@ MainWindow::MainWindow(QWidget *parent) :
         {
             startSound->stop();
             ui->music1->setStyleSheet("background-image: url(:/res/music_off.png);background-color: rgba(255, 255, 255,0);");
+            ui->music2->setStyleSheet("background-image: url(:/res/music_off.png);background-color: rgba(255, 255, 255,0);");
         }
         else
         {
             startSound->setLoops(-1);
             startSound->play();
             ui->music1->setStyleSheet("background-image: url(:/res/music_on.png);background-color: rgba(255, 255, 255,0);");
+            ui->music2->setStyleSheet("background-image: url(:/res/music_on.png);background-color: rgba(255, 255, 255,0);");
+
         }
         flag2=!flag2;
+    });
+    connect(ui->music2,&QPushButton::clicked,this,[=,&flag2](){
+        if(flag2)
+        {
+            startSound->stop();
+            ui->music1->setStyleSheet("background-image: url(:/res/music_off.png);background-color: rgba(255, 255, 255,0);");
+            ui->music2->setStyleSheet("background-image: url(:/res/music_off.png);background-color: rgba(255, 255, 255,0);");
+        }
+        else
+        {
+            startSound->setLoops(-1);
+            startSound->play();
+            ui->music1->setStyleSheet("background-image: url(:/res/music_on.png);background-color: rgba(255, 255, 255,0);");
+            ui->music2->setStyleSheet("background-image: url(:/res/music_on.png);background-color: rgba(255, 255, 255,0);");
+
+        }
+        flag2=!flag2;
+    });
+    /*首页排行按钮*/
+    connect(ui->rank2,&QPushButton::clicked,this,[=](){
+        Get();
+        ui->goback2->setStyleSheet("background-image: url(:/res/go_back.png);"
+                                   "background-color: rgba(255, 255, 255,0);");
+        ui->stackedWidget->setCurrentIndex(3);
+        ui->exit->setVisible(false);
+        ui->addition->setVisible(false);
+        disconnect(ui->goback2,0,0,0);
+        connect(ui->goback2,&QPushButton::clicked,this,[=](){
+            ui->stackedWidget->setCurrentIndex(4);
+            ui->goback2->setStyleSheet("background-image: url(:/res/retry.png);"
+                                       "background-color: rgba(255, 255, 255,0);");
+            ui->exit->setVisible(true);
+            ui->addition->setVisible(true);
+            connect(ui->goback2,&QPushButton::clicked,this,[=]()
+            {
+                ui->stackedWidget->setCurrentIndex(1);//设定为第1页
+            });
+        });
+    });
+    connect(ui->start,&QPushButton::clicked,this,[=](){
+        if(!flag2)p_button->play();
+        ui->stackedWidget->setCurrentIndex(0);
     });
     //重玩游戏
     connect(ui->goback,&QPushButton::clicked,this,[=]()
     {
-        ui->one->setVisible(true);
-        ui->two->setVisible(true);
-        ui->there->setVisible(true);
+        if(!flag2)p_button->play();
         ui->stackedWidget->setCurrentIndex(1);//设定为第1页
     });
     connect(ui->goback2,&QPushButton::clicked,this,[=]()
     {
-        ui->one->setVisible(true);
-        ui->two->setVisible(true);
-        ui->there->setVisible(true);
+        if(!flag2)p_button->play();
         ui->stackedWidget->setCurrentIndex(1);//设定为第1页
     });
     connect(ui->exit,&QPushButton::clicked,this,[=]()//退出游戏
     {
+        if(!flag2)p_button->play();
         exit(0);
     });
+    //消除区列表
+    deleteBtnList=new QList<MyButton *>();
+
+    //初始化随机数生成器，设置种子
+    //init_randomGenerator();
+
+    //加载模版图案
+    //创建10个模版按钮
+    modelGroup = new QButtonGroup();
+
+    this->load_element();
+
+    // 随机生成关卡中需要的元素
+    levelGroup = new QButtonGroup();
     Gameinit();
 }
 QString name;
-int num=0,len=0;
+int num=0,len=10;
 MyButton *highlight;
-bool flag=0;
+bool flag=0,flagx=0;
+void MainWindow::slotReadyRead()
+{
+    int result;
+    QNetworkReply *reply = (QNetworkReply *)sender();
+    //QString s=reply->readAll();
+    QString replyArray = reply->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(replyArray.toUtf8(), &jsonError));
+    QJsonObject jsonObject=jsonDoc.object();//抓取json对象
+    QJsonArray array=jsonObject["users"].toArray();//抓取并转化为数组
+    user.delete_all();
+    User my_user;
+    for(int i=0; i<10; i++)
+    {
+        QJsonValue child =array.at(i);
+        QJsonObject object=child.toObject();
+        my_user.username =object.value("username").toString();
+        my_user.score =object.value("score").toInt();
+        //qDebug()<< my_user.username<<" "<< my_user.score<<endl;
+        user.add_user(my_user);
+    }
+    user.qsort1(0,9);//快速排序
+    //写入排名
+    userlist=user.show_ranking();
+    for(int i=0;i<len;i++)
+    {
+        ui->rank->setItem(9-i,0,new QTableWidgetItem(userlist[i].username));
+        ui->rank->setItem(9-i,1,new QTableWidgetItem(QString::number(userlist[i].score)));
+    }
+    //写入文件
+    QFile json_file("./database.json");
+    QFile file("./highscore.dat");
+    file.open(QIODevice::Truncate|QIODevice::WriteOnly);
+    bool ok=json_file.open(QIODevice::Truncate|QIODevice::WriteOnly);//设置为覆盖写入
+    if(ok)
+    {
+        QTextStream stream(&json_file);
+        QTextStream streamx(&file);
+        stream.setCodec("UTF-8");		// 设置写入编码是UTF8
+        streamx.setCodec("UTF-8");
+        // 写入文件
+        stream << jsonDoc.toJson();
+        streamx<<jsonDoc.toJson();
+        json_file.close();
+        file.close();
+        //qDebug()<<"yes"<<endl;
+    }
+    else
+    {
+        qDebug()<<"write error!"<<endl;
+    }
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        result = -1;
+    }
+    QJsonObject rootObject = jsonDoc.object();
+    QString codeResult = rootObject.value("code").toString();
+    if (codeResult.compare("200") == 0)
+    {
+        //返回代码为200的时候证明请求成功
+        if(rootObject.contains("result"))
+        {
+
+        }
+        result = 0;
+    }
+    else
+    {
+        //请求失败对对应的处理
+        result = codeResult.toInt();
+    }
+    //qDebug()<<result;
+    //return result;
+    //qDebug()<< __FUNCTION__ <<data;
+}
+
+void MainWindow::slotgetpost()
+{
+    QNetworkReply *reply = (QNetworkReply *)sender();
+    //QString s=reply->readAll();
+    QString replyArray = reply->readAll();
+    qDebug()<< __FUNCTION__ <<replyArray;
+}
+
+void MainWindow::slotError(QNetworkReply::NetworkError code)
+{
+    QNetworkReply *reply = (QNetworkReply *)sender();
+    QString s=reply->errorString();
+    qDebug()<< __FUNCTION__ <<s;
+    if(flagx==0)
+    {
+         QMessageBox::information(this, "infor", "服务器连接失败,开启离线对战模式");
+         flagx=1;
+    }
+
+}
+void MainWindow::Get()
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://code-by-code.emmmmm.tk/get-users"));//url
+    request.setRawHeader("Connection", "keep-alive");//信息头
+    request.setRawHeader("User-Agent", "Client");//信息头
+     QNetworkReply *reply = m_pNetworkAccessManager->get(request);
+     connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
+     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+             this, SLOT(slotError(QNetworkReply::NetworkError)));
+     QEventLoop loop;  //事件循环，直到成功
+     connect(reply,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+     loop.exec();
+     if(flagx==0)
+     {
+          QMessageBox::information(this, "infor", "服务器连接成功,开启在线对战模式");
+          flagx=1;
+     }
+}
+
+void MainWindow::Post(QString username, int score)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://code-by-code.emmmmm.tk/add-users"));//url
+    request.setRawHeader("Connection", "keep-alive");//信息头
+    request.setRawHeader("User-Agent", "Client");//信息头
+    //请求头
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));//设置成json格式！！
+    QJsonObject interestObj;
+    // 插入元素，对应键值对
+    interestObj.insert("score", score);
+    interestObj.insert("username", username);
+    QByteArray bate=QJsonDocument(interestObj).toJson(QJsonDocument::Compact);
+     QNetworkReply *reply = m_pNetworkAccessManager->post(request,bate);//post(str.toUtf8());
+     connect(reply, SIGNAL(readyRead()), this, SLOT(slotgetpost()));
+     QEventLoop loop;//事件循环，直到成功
+     connect(reply,&QNetworkReply::finished,&loop,&QEventLoop::quit);
+     loop.exec();
+}
+void MainWindow::Init()
+{
+    m_pNetworkAccessManager=new QNetworkAccessManager(this);
+//    connect(m_pNetworkAccessManager,&QNetworkAccessManager::finished,this,[=](QNetworkReply *reply){
+//        Q_ASSERT(reply);//判断是否为空
+//        QString s=reply->errorString();
+//        qDebug()<< __FUNCTION__ <<s;
+//        reply->deleteLater();
+//    });
+    //
+     //   connect(m_pNetworkAccessManager,&QNetworkAccessManager::finished,this,&MainWindow::receiveHttpPostReply);
+    //Get();
+}
 void MainWindow::Gameinit()
 {
 
 
-    ui->stackedWidget->setCurrentIndex(0);//设定为第0页
-    //QAbstractButton * btn = ui->rank->findChild<QAbstractButton *>();
-    //btn->setStyleSheet("background-color: rgba(255, 255, 255,0);");
-    //QTableView QTableCornerButton::section {background-color: rgba(255, 255, 255,0);}
-    //ui->rank->cornerWidget()->setStyleSheet("QTableView::section {background-color: rgba(255, 255, 255,0);}");
-   // ui->rank->
-    //QString style=ui->rank->styleSheet();
-    //ui->rank->setStyleSheet(style+"QTableCornerButton::section{background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
-
+    ui->stackedWidget->setCurrentIndex(4);//设定为第0页
+    //  对表格进行初始化
     ui->rank->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
     ui->rank->verticalHeader()->setStyleSheet("QHeaderView::section {background-color: rgba(255, 255, 255,0);background-image: url(:/res/none.png);}");
     ui->rank->setColumnCount(2);
@@ -108,10 +331,11 @@ void MainWindow::Gameinit()
     ui->rank->setVerticalHeaderLabels(QStringList()<<"10"<<"9"<<"8"<<"7"<<"6"<<"5"<<"4"<<"3"<<"2"<<"1");
     ui->rank->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->rank->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->lineEdit->setPlaceholderText("2 - 10 个 字");//输入名字栏
-    //QString *name =new *QString(this);
+    ui->lineEdit->setPlaceholderText("2-10个字");//输入名字栏
+    ui->lineEdit->setAlignment(Qt::AlignCenter);
     connect(ui->submit1,&QPushButton::clicked,this,[=,&name]()
     {
+        if(!flag2)p_button->play();
         name=ui->lineEdit->text();
 
         if(name.length()<=1||name.length()>10)
@@ -123,47 +347,22 @@ void MainWindow::Gameinit()
     });//确认按键
 
     connect(ui->one,&QPushButton::clicked,this,[=,&num](){
-       //ui->one->setVisible(false);
-       ui->two->setVisible(false);
-       ui->there->setVisible(false);
+        if(!flag2)p_button->play();
        sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);
        ui->stackedWidget->setCurrentIndex(2);//设定为第2页
        num=1;
        initGame();
-       //ui->widget_2->setVisible(false);
-       //ui->widget_3->setVisible(false);
-       //QString style=btn->styleSheet();
-       //btn->setStyleSheet(style+QString("image : url(:/icons/%1.png);").arg(btn->myId));//变元函数
-       /*
-       QString style1=ui->widget->styleSheet();
-       QString style2=ui->widget_2->styleSheet();
-       QString style4=ui->widget_4->styleSheet();
-       qDebug()<<style1<<" "<<style2<<" "<<style4<<endl;
-       for(int i=0;i<=250;i+=25)
-       {
-            //ui->widget_2->setStyleSheet(QString("#widget_2{background-image: url(:/res/middle1.png);background-color: rgba(255, 255, 255,%1);}").arg(i));
-            //ui->widget_4->setStyleSheet(QString("#widget_4{background-image: url(:/res/front.png);background-color: rgba(255, 255, 255,%1);}").arg(i));
-            // ui->widget_2->setStyleSheet(QString("#widget_2{background-image: url(:/res/middle1.png);background-color: rgba(255, 255, 255,%1);}").arg(i));
-            //ui->widget->setStyleSheet(QString("#widget{")+style1+QString("background-color: rgba(255, 255, 255,%1);}").arg(i));
-            //qDebug()<<ui->widget->styleSheet()<<" "<<ui->widget_2->styleSheet()<<" "<<ui->widget_3->styleSheet()<<endl;
-            sleep(5);
-       }
-       ui->widget_2->setStyleSheet("");
-       ui->widget_4->setStyleSheet("");
-       ui->widget->setStyleSheet(style1);*/
+       //特效
     });
     connect(ui->two,&QPushButton::clicked,this,[=,&num](){
-       ui->one->setVisible(false);
-       //ui->two->setVisible(false);
-       ui->there->setVisible(false);
+        if(!flag2)p_button->play();
        sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);
        ui->stackedWidget->setCurrentIndex(2);//设定为第2页
        num=2;
        initGame();
     });
     connect(ui->there,&QPushButton::clicked,this,[=,&num](){
-       ui->one->setVisible(false);
-       ui->two->setVisible(false);
+        if(!flag2)p_button->play();
        sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);sleep(100);
        ui->stackedWidget->setCurrentIndex(2);//设定为第2页
        num=3;
@@ -202,20 +401,6 @@ void MainWindow::initGame()
             deleteBtnList->removeAt(0);
         }
     }
-    //消除区列表
-    deleteBtnList=new QList<MyButton *>();
-
-    //初始化随机数生成器，设置种子
-    //init_randomGenerator();
-
-    //加载模版图案
-    //创建10个模版按钮
-    modelGroup = new QButtonGroup();
-
-    this->load_element();
-
-    // 随机生成关卡中需要的元素
-    levelGroup = new QButtonGroup();
     //初始化第num关
     distribution_element(num);
     //根据是否可点击设置颜色
@@ -278,26 +463,26 @@ void MainWindow::setPictureByStatus(MyButton *btn)
 void MainWindow::setSideBtn(QPoint current_btn_point)
 {//重新计算是否被遮挡
 
-    MyButton * tmp_btn = (MyButton *) ui->goodsWidget->childAt(current_btn_point);
+    MyButton * tmp_btn = (MyButton *) ui->goodsWidget->childAt(current_btn_point);//正下（左上）
     if(tmp_btn)
     {
         setPictureByStatus(tmp_btn);
     }
 
-    QPoint left_below(current_btn_point.rx(),current_btn_point.ry() + 100);
+    QPoint left_below(current_btn_point.rx(),current_btn_point.ry() + 100);//左下
     tmp_btn = (MyButton *) ui->goodsWidget->childAt(left_below);
     if(tmp_btn)
     {
         setPictureByStatus(tmp_btn);
     }
 
-    QPoint rigth_top(current_btn_point.rx() + 100,current_btn_point.ry());
+    QPoint rigth_top(current_btn_point.rx() + 100,current_btn_point.ry());//右上
     tmp_btn = (MyButton *) ui->goodsWidget->childAt(rigth_top);
     if(tmp_btn)
     {
         setPictureByStatus(tmp_btn);
     }
-    QPoint rigth_below(current_btn_point.rx() + 100,current_btn_point.ry() + 100);
+    QPoint rigth_below(current_btn_point.rx() + 100,current_btn_point.ry() + 100);//右下
     tmp_btn = (MyButton *) ui->goodsWidget->childAt(rigth_below);
     if(tmp_btn)
     {
@@ -370,7 +555,6 @@ void MainWindow::distribution_element(int level)
 
     //将游戏区按键信号与槽链接
     connect(levelGroup,SIGNAL(buttonClicked(QAbstractButton *)),this,SLOT(addToDeleteSlot(QAbstractButton *)));
-
     // 打乱levelGroup的顺序
     QVector<int> *placement_num = new QVector<int>();     //顺序编号
     QVector<int> *placement_state = new QVector<int>();   //levelGroup中每个button放置的位置
@@ -405,7 +589,7 @@ void MainWindow::addToDeleteSlot(QAbstractButton *aBtn)
     bool ret=isClickable(btn);
     if(!ret)
         return;
-
+     if(!flag2)p_button->play();
     // 从levelGroup中移除btn，并加入到deleteWidget。
     QPoint current_btn_point = btn->pos();
     levelGroup->removeButton(btn);
@@ -543,14 +727,17 @@ void MainWindow::addToDeleteWidget(MyButton *btn)
             this->close();
         }
     }
-    else if(levelGroup->buttons().empty()&&deleteBtnList->size()==0)
+    else if(levelGroup->buttons().empty()&&deleteBtnList->size()==0)//判断游戏成功
     {
 
         myuser.username=username;
         myuser.score=score;
-        if(len<10)len++;
+        Get();
+        //if(len<10)len++;
         int i=user.add_user(myuser)+1;
+        Post(username,score);
         userlist=user.show_ranking();
+        //输出表格
         for(int i=0;i<len;i++)
         {
             ui->rank->setItem(9-i,0,new QTableWidgetItem(userlist[i].username));
@@ -568,6 +755,7 @@ void MainWindow::addToDeleteWidget(MyButton *btn)
         //username score
     }
 }/**/
+
 //消除相同的块
 void MainWindow::removeSame()
 {
@@ -586,6 +774,8 @@ void MainWindow::removeSame()
         if(sum==3)
         {
             //remove
+            if(!flag2)
+            c_button->play();
             deleteBtnList->at(i)->setParent(NULL);
             disconnect(deleteBtnList->at(i),0,0,0);
             deleteBtnList->removeAt(i);
@@ -607,12 +797,13 @@ void MainWindow::removeSame()
     {
         MyButton *oldBtn = (MyButton *)deleteBtnList->at(i);
         MyButton *nextBtn = (MyButton *)deleteBtnList->at(i+1);
-        //qDebug()<<oldBtn->myId2<<""<<nextBtn->myId2<<endl;
         if(oldBtn->Id==0&&nextBtn->Id==0)
         {
             int l=deleteBtnList->size();
             for(int j=0;j<l;j++)
             {
+                if(!flag2)
+                c_button->play();
                 deleteBtnList->at(i)->setParent(NULL);
                 disconnect(deleteBtnList->at(i),0,0,0);
                 deleteBtnList->removeAt(i);
@@ -621,6 +812,8 @@ void MainWindow::removeSame()
             break;
         }
         else if(oldBtn->myId1.toInt()==nextBtn->myId1.toInt()&&oldBtn->myId2.toInt()!=nextBtn->myId2.toInt()){
+            if(!flag2)
+            c_button->play();
             deleteBtnList->at(i)->setParent(NULL);
             disconnect(deleteBtnList->at(i),0,0,0);
             deleteBtnList->removeAt(i);

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia sql
+QT       += core gui multimedia sql network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = learn-to-use-V1-0
@@ -27,4 +27,5 @@ RESOURCES += \
 CONFIG += resources_big
 
 DISTFILES += \
-    json/object.json
+    json/object.json \
+    database.json

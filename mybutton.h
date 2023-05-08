@@ -13,11 +13,9 @@ public:
     MyButton * copyMyButton();
 
 public:
-    QList<MyButton> *buttomBtnList;
-    QList<MyButton> *topBtnList;
     int Id;//总类型编号
     int indeId;  //独立唯一编号
     QString myId1;//指征它是那种色块
-    QString myId2;//指征他是第几个
+    QString myId2;//指征他是该种色块的第几个
 };
 #endif // MYBUTTON_H
