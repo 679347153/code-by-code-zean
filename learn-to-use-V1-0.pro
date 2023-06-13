@@ -29,3 +29,5 @@ CONFIG += resources_big
 DISTFILES += \
     json/object.json \
     database.json
+
+RC_ICONS = icon.ico

@@ -63,7 +63,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <property name="styleSheet">
@@ -286,7 +286,7 @@ background-color: rgba(255, 255, 255,0);</string>
          <x>37</x>
          <y>150</y>
          <width>780</width>
-         <height>1100</height>
+         <height>1271</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -321,7 +321,6 @@ background-color: rgba(255, 255, 255,0);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 75 italic 48pt &quot;鸿雷拙书简体&quot;;
-
 color: rgb(255, 51, 11);
 background-image: url(:/res/none.png);</string>
        </property>

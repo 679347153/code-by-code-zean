@@ -41,9 +41,14 @@
 //Tcp协议
 #include<QTcpSocket>  //通讯套接字
 #include<QHostAddress>
-//#include <QtGlobal>
+#include<QFontDatabase>//字体
+//动画
+#include <QPropertyAnimation>
+#include <QPushButton>
+#include <QStateMachine>
+#include <QFont>
+#include <QSignalTransition>
 //类似c++创建namespace
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -100,8 +105,6 @@ public slots:
     void slotgetpost();
     //连接错误报错
     void slotError(QNetworkReply::NetworkError code);
-    //int receiveHttpPostReply(QNetworkReply* reply);
-    //void highlightit(MyButton*);
 private:
     QString username;//用户名
     int score;//分数
@@ -110,5 +113,6 @@ private:
     QSound *c_button;
     QTcpSocket *tcpSocket;        //Tcp协议通讯套接字
     QNetworkAccessManager *m_pNetworkAccessManager =nullptr;     //HTTP协议
+
 };
 #endif // MAINWINDOW_H

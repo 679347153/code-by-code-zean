@@ -1,5 +1,5 @@
 #include "database.h"
-//快速排序
+//快速排序（为未来大量数据做准备）
 void database::qsort1(int l,int r)//b
 {
     User swap;
@@ -31,7 +31,6 @@ void database::delete_all()
 int database::add_user(User player)
 {
     int i;
-    //void insert;
     for(i=0;i<10;i++)
     {
         if(Top_ten[i].score<player.score)
