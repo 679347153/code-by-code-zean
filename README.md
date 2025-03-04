@@ -1,0 +1,1 @@
+Developed using Qt_5_6_0_MinGW_32bit
